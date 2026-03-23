@@ -1,0 +1,31 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sw?
+
+# .NET
+backend/src/bin/
+backend/src/obj/
+backend/tests/bin/
+backend/tests/obj/
+
+# Node / Vue
+node_modules/
+dist/
+dist-ssr/
+*.local
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Claude
+.claude/
