@@ -27,5 +27,6 @@ npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
 
-# Claude
-.claude/
+# Claude — track agents, commands, and shared settings
+.claude/settings.local.json
+.claude/worktrees/
