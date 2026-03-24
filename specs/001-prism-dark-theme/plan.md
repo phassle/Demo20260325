@@ -12,7 +12,7 @@ Migrate frontend from Preact 10.x + preact-router to React 19 + react-router-dom
 **Language/Version**: JavaScript (JSX), no TypeScript
 **Primary Dependencies**: React 19, react-dom, react-router-dom, Vite 8 (@vitejs/plugin-react)
 **Storage**: N/A (frontend only, backend unchanged)
-**Testing**: Automated smoke test (build + route check + grep verification) + manual visual QA + backend xUnit (unchanged)
+**Testing**: TDD with Vitest + @testing-library/react (14 tests, one per ACC scenario) + grep verification + manual visual QA + backend xUnit (unchanged)
 **Target Platform**: Modern browsers (desktop + mobile 390px)
 **Project Type**: Web application (frontend-only changes)
 **Performance Goals**: Comparable perceived load time to current Preact version
@@ -107,7 +107,8 @@ frontend/
 
 Structure commits to separate concerns for revertability:
 1. **Commit 1**: Framework migration (Preact → React) — all files work identically with the old light theme
-2. **Commit 2**: Dark theme CSS rewrite + page component updates
+2. **Commit 2**: Dark theme CSS rewrite + layout component updates
+3. **Commit 3**: Page-specific design fidelity matching Stitch references
 
 This enables selective revert if one concern has issues.
 

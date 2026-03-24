@@ -8,7 +8,7 @@ At the end of each plan, list unresolved questions.
 | Layer | Tech | Version |
 |-------|------|---------|
 | Backend | C# / .NET | 10.0 (`global.json:2`) |
-| Frontend | Preact + preact-router | 10.x (`frontend/package.json:12`) |
+| Frontend | React 19 + react-router-dom v7 | 19.x (`frontend/package.json:13`) |
 | Build | Vite 8 | `frontend/vite.config.js:1` |
 | Logging | Serilog | `backend/src/Program.cs:7` |
 | Scheduling | Quartz.NET | `backend/src/Program.cs:20` |
@@ -86,7 +86,7 @@ Feature specs live in `specs/GH-*.md` — read before implementing any GH-N task
 | [specs/](specs/) | BDD feature specs (GH-1, GH-2, GH-3) |
 
 ## Active Technologies
-- JavaScript (JSX), no TypeScrip + React 19, react-dom, react-router-dom, Vite 8 (@vitejs/plugin-react) (001-prism-dark-theme)
+- JavaScript (JSX), no TypeScript + React 19, react-dom, react-router-dom, Vite 8 (@vitejs/plugin-react) (001-prism-dark-theme)
 - N/A (frontend only, backend unchanged) (001-prism-dark-theme)
 
 ## Recent Changes

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useApiData } from '../hooks/useApiData';
 import { documentApi, deviationApi, auditApi, caseApi } from '../services/api';
 
@@ -56,7 +57,7 @@ export function DashboardPage() {
         </div>
       </div>
       <div style={{ marginTop: '1.5rem' }}>
-        <button className="btn btn-primary btn-gradient radius-lg">View All Deviations</button>
+        <Link to="/deviations" className="btn btn-primary btn-gradient radius-lg">View All Deviations</Link>
       </div>
     </div>
   );

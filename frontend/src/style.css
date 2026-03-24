@@ -238,7 +238,7 @@ a { text-decoration: none; color: inherit; }
 .badge-glow-green { background: rgba(80, 244, 227, 0.1); color: #50f4e3; }
 .badge-glow-red { background: rgba(255, 113, 108, 0.1); color: #ff716c; }
 .badge-glow-yellow { background: rgba(251, 191, 36, 0.1); color: #fbbf24; }
-.badge-glow-blue { background: rgba(172, 138, 255, 0.1); color: #ac8aff; }
+.badge-glow-blue { background: rgba(96, 165, 250, 0.1); color: #60a5fa; }
 .badge-glow-orange { background: rgba(255, 156, 126, 0.1); color: #ff9c7e; }
 .badge-glow-gray { background: rgba(136, 150, 179, 0.1); color: #8896b3; }
 .badge-glow-violet { background: rgba(172, 138, 255, 0.1); color: #ac8aff; }
@@ -277,9 +277,6 @@ a { text-decoration: none; color: inherit; }
 .btn-primary {
   background: linear-gradient(135deg, var(--color-primary), var(--color-primary-container));
   color: var(--color-base);
-}
-.btn-primary.btn-gradient {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-container));
 }
 .btn-primary:hover:not(:disabled) {
   box-shadow: 0 0 16px rgba(80, 244, 227, 0.3);
