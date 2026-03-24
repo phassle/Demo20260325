@@ -1,4 +1,4 @@
-namespace PortCom.Demo.Middleware;
+namespace Centuri.Demo.Middleware;
 
 /// <summary>
 /// !! STOP RULE: Never touch this file without asking !!

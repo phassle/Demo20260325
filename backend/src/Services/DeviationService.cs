@@ -1,0 +1,35 @@
+using Centuri.Demo.Models;
+namespace Centuri.Demo.Services;
+
+public class DeviationService : IDeviationService
+{
+    private static readonly IReadOnlyList<Deviation> Deviations = new List<Deviation>
+    {
+        new() { Id = 1,  Title = "Temperature excursion in cold storage room B",       Description = "Temperature logged at 9.2C exceeding the 2-8C range for 45 minutes during weekend shift.",                   Severity = DeviationSeverity.Critical, Status = DeviationStatus.InProgress, ReportedBy = "Sofia Andersson",  AssignedTo = "Lars Pettersson",  CreatedAt = new DateTime(2025, 11, 3),  ResolvedAt = null },
+        new() { Id = 2,  Title = "Missing signature on batch record BR-2025-0842",     Description = "Production operator signature missing on step 4.3 of batch record for lot L20251015.",                          Severity = DeviationSeverity.Medium,   Status = DeviationStatus.Resolved,   ReportedBy = "Maria Karlsson",   AssignedTo = "Erik Johansson",   CreatedAt = new DateTime(2025, 10, 18), ResolvedAt = new DateTime(2025, 10, 25) },
+        new() { Id = 3,  Title = "Calibration overdue on pH meter PM-017",             Description = "pH meter PM-017 found with expired calibration sticker; last calibration was 14 months ago.",                    Severity = DeviationSeverity.High,     Status = DeviationStatus.Open,       ReportedBy = "Nils Eriksson",    AssignedTo = "Lars Pettersson",  CreatedAt = new DateTime(2025, 12, 1),  ResolvedAt = null },
+        new() { Id = 4,  Title = "Label mix-up on intermediate container",             Description = "Wrong product label found on intermediate container IC-4521 during in-process check.",                           Severity = DeviationSeverity.Critical, Status = DeviationStatus.InProgress, ReportedBy = "Sofia Andersson",  AssignedTo = "Maria Karlsson",   CreatedAt = new DateTime(2025, 11, 20), ResolvedAt = null },
+        new() { Id = 5,  Title = "Cleaning validation failure in reactor R-03",        Description = "Swab test results for reactor R-03 exceeded acceptance limit of 10 ppm after cleaning cycle.",                  Severity = DeviationSeverity.High,     Status = DeviationStatus.Resolved,   ReportedBy = "Lars Pettersson",  AssignedTo = "Anna Lindberg",    CreatedAt = new DateTime(2025, 9, 5),   ResolvedAt = new DateTime(2025, 9, 20) },
+        new() { Id = 6,  Title = "Supplier certificate of analysis missing",           Description = "CoA for raw material RM-330 lot 2025-08-A not received from supplier before material was staged.",              Severity = DeviationSeverity.Medium,   Status = DeviationStatus.Closed,     ReportedBy = "Erik Johansson",   AssignedTo = "Sofia Andersson",  CreatedAt = new DateTime(2025, 8, 12),  ResolvedAt = new DateTime(2025, 8, 20) },
+        new() { Id = 7,  Title = "Particle count excursion in cleanroom CR-2",         Description = "Viable particle count at monitoring point CP-07 exceeded Grade B limits during production campaign.",            Severity = DeviationSeverity.Critical, Status = DeviationStatus.Open,       ReportedBy = "Nils Eriksson",    AssignedTo = "Anna Lindberg",    CreatedAt = new DateTime(2025, 12, 10), ResolvedAt = null },
+        new() { Id = 8,  Title = "Incorrect expiry date printed on product labels",    Description = "Expiry date on 200 units of product P-100 printed as 2026-03 instead of 2027-03.",                              Severity = DeviationSeverity.High,     Status = DeviationStatus.InProgress, ReportedBy = "Maria Karlsson",   AssignedTo = "Erik Johansson",   CreatedAt = new DateTime(2025, 11, 8),  ResolvedAt = null },
+        new() { Id = 9,  Title = "SOP not followed during equipment setup",           Description = "Operator deviated from SOP-012 step 3.5 during setup of filling machine FM-02.",                                 Severity = DeviationSeverity.Low,      Status = DeviationStatus.Resolved,   ReportedBy = "Sofia Andersson",  AssignedTo = "Maria Karlsson",   CreatedAt = new DateTime(2025, 10, 2),  ResolvedAt = new DateTime(2025, 10, 10) },
+        new() { Id = 10, Title = "Water system TOC trending above alert level",        Description = "Total organic carbon in purified water system WS-01 measured at 380 ppb against alert limit of 400 ppb.",       Severity = DeviationSeverity.Low,      Status = DeviationStatus.Open,       ReportedBy = "Lars Pettersson",  AssignedTo = "Nils Eriksson",    CreatedAt = new DateTime(2025, 12, 5),  ResolvedAt = null },
+        new() { Id = 11, Title = "Training record incomplete for new operator",        Description = "New operator started production activities without completed training record for SOP-001 and SOP-003.",          Severity = DeviationSeverity.Medium,   Status = DeviationStatus.Closed,     ReportedBy = "Anna Lindberg",    AssignedTo = "Sofia Andersson",  CreatedAt = new DateTime(2025, 7, 20),  ResolvedAt = new DateTime(2025, 7, 28) },
+        new() { Id = 12, Title = "Backup generator failed during power outage",        Description = "Emergency backup generator failed to start within 10 seconds during unplanned power outage affecting cold rooms.", Severity = DeviationSeverity.Critical, Status = DeviationStatus.Resolved,   ReportedBy = "Nils Eriksson",    AssignedTo = "Lars Pettersson",  CreatedAt = new DateTime(2025, 6, 15),  ResolvedAt = new DateTime(2025, 7, 1) },
+        new() { Id = 13, Title = "Document revision control discrepancy",              Description = "Obsolete version of WI-012 found in use at workstation WS-05; current version is v3 but v2 was displayed.",    Severity = DeviationSeverity.Medium,   Status = DeviationStatus.Closed,     ReportedBy = "Maria Karlsson",   AssignedTo = "Erik Johansson",   CreatedAt = new DateTime(2025, 5, 10),  ResolvedAt = new DateTime(2025, 5, 18) },
+        new() { Id = 14, Title = "Raw material quarantine area overflow",              Description = "Quarantine area Q-01 exceeded capacity; materials staged in adjacent uncontrolled area temporarily.",             Severity = DeviationSeverity.High,     Status = DeviationStatus.Open,       ReportedBy = "Lars Pettersson",  AssignedTo = "Anna Lindberg",    CreatedAt = new DateTime(2025, 12, 15), ResolvedAt = null },
+        new() { Id = 15, Title = "Pest control finding in warehouse zone W-03",        Description = "Evidence of rodent activity found during routine pest control inspection in warehouse zone W-03.",               Severity = DeviationSeverity.High,     Status = DeviationStatus.InProgress, ReportedBy = "Sofia Andersson",  AssignedTo = "Nils Eriksson",    CreatedAt = new DateTime(2025, 12, 20), ResolvedAt = null },
+    };
+
+    /// <summary>
+    /// BUG: This method incorrectly filters out Closed deviations.
+    /// All deviations should be returned regardless of status.
+    /// </summary>
+    public Task<IEnumerable<Deviation>> GetAllAsync()
+        => Task.FromResult<IEnumerable<Deviation>>(
+            Deviations.Where(d => d.Status != DeviationStatus.Closed).ToList());
+
+    public Task<Deviation?> GetByIdAsync(int id)
+        => Task.FromResult(Deviations.FirstOrDefault(d => d.Id == id));
+}

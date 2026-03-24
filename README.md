@@ -1,7 +1,7 @@
-# PortCom Demo — Agentic Development Workshop
+# Centuri eQMS Demo — Agentic Development Workshop
 
 Demo project for the Monterro **Agentic Development Workshop**.
-A food ordering platform with compliance monitoring — built with C#/.NET 8 + Vue 3.
+An eQMS (electronic Quality Management System) demo inspired by Centuri (Monterro portfolio company). Quality management platform with document control, deviation handling, and audit management — built with C#/.NET 10 + Preact.
 
 ---
 
@@ -43,42 +43,42 @@ that returns { status: ok, timestamp: DateTime.UtcNow }
 ### DEMO: Bug fix
 
 ```
-Bug: GET /api/v2/customers doesn't show customer 5,
-but GET /api/v2/customers/5 returns it.
+Bug: GET /api/v2/deviations doesn't show deviation 5,
+but GET /api/v2/deviations/5 returns it.
 That shouldn't be possible.
 ```
 
 ### DEMO: Plan Mode
 
 ```
-Implement YT-1234. Plan mode.
+Implement GH-2. Plan mode.
 ```
 
 ### DEMO: Two prompts that level up plan mode
 
 **"Ask me questions":**
 ```
-Add a Vue dashboard that shows live order status.
-Poll GET /api/orders every 10 seconds.
+Add a Preact dashboard that shows document approval status.
+Poll GET /api/v2/documents every 10 seconds.
 Ask me questions to clarify requirements.
 ```
 
 **"Give me N options":**
 ```
-We need JWT auth on our .NET API.
+We need role-based access control on our .NET API.
 Read Controllers/ and give me 3 options.
 ```
 
 ### DEMO: Hooks in action
 
 ```
-Add a GetCustomerById method to CustomerService
+Add a GetDeviationById method to DeviationService
 ```
 
 ### DEMO: The full flow — Plan → Build → Simplify → Verify
 
 ```
-Implement YT-1234. Plan mode.
+Implement GH-2. Plan mode.
 Ask me questions to clarify requirements.
 ```
 
@@ -88,7 +88,7 @@ Ask me questions to clarify requirements.
 
 **Prompt A — "Ask me questions":**
 ```
-Add an endpoint GET /api/customers/export that returns CSV.
+Add an endpoint GET /api/v2/documents/export that returns CSV.
 Read the existing controllers and services.
 Ask me questions to clarify requirements.
 Plan mode.
@@ -139,7 +139,7 @@ cd backend && dotnet build && dotnet run
 # → http://localhost:5000
 
 # Frontend (terminal 2)
-cd frontend-vue && npm install && npm run dev
+cd frontend && npm install && npm run dev
 # → http://localhost:3000 (proxies /api → backend)
 ```
 
@@ -155,29 +155,24 @@ cd backend && dotnet format        # code style check
 ## Project structure
 
 ```
-PortCom/
+Centuri/
 ├── backend/
-│   ├── PortCom.Demo.sln
+│   ├── Centuri.Demo.sln
 │   ├── src/
 │   │   ├── Controllers/         ← REST endpoints (/api/v2/...)
-│   │   ├── Services/            ← Business logic + interfaces
+│   │   ├── Services/            ← Business logic + interfaces + fakes
 │   │   ├── Models/              ← Domain models
 │   │   ├── Middleware/          ← AuthMiddleware
-│   │   └── Program.cs           ← DI, Serilog, routing
+│   │   └── Program.cs           ← DI, Serilog, Quartz, routing
 │   └── tests/                   ← xUnit test project
-├── frontend-vue/
+├── frontend/
 │   ├── src/
-│   │   ├── pages/               ← Dashboard, Customers, Orders, ...
+│   │   ├── pages/               ← Dashboard, Documents, Deviations, ...
 │   │   ├── components/          ← Layout, cards, tables
-│   │   ├── services/api.ts      ← Axios client (all API calls here)
-│   │   ├── composables/         ← useApiData, useFoodOrders, ...
-│   │   └── types/               ← TypeScript interfaces
-│   └── vite.config.ts           ← Dev proxy → localhost:5000
-├── integrations/
-│   ├── azure-devops/            ← Azure DevOps client
-│   ├── youtrack/                ← YouTrack issue tracker
-│   └── compliance-engine/       ← Requires compliance team
-├── specs/                       ← BDD spec files (YT-1234-*.md)
+│   │   ├── services/api.js      ← Fetch client (all API calls here)
+│   │   └── hooks/               ← useApiData
+│   └── vite.config.js           ← Dev proxy → localhost:5000
+├── specs/                       ← BDD spec files (GH-*.md)
 └── .claude/
     ├── settings.json            ← Hooks + permissions
     ├── agents/                  ← Subagents
@@ -190,13 +185,19 @@ PortCom/
 
 | Method | Route | Description |
 |--------|-------|-------------|
-| GET | `/api/v2/customers` | All customers (non-deleted) |
-| GET | `/api/v2/customers/{id}` | Customer by ID |
-| GET | `/api/v2/customers/export` | CSV export (admin-only) |
-| GET | `/api/v2/foodorders` | All food orders |
-| GET | `/api/v2/menuitems` | All menu items |
-| GET | `/api/v2/customerreviews` | Customer reviews |
-| GET | `/api/v2/payments` | All payments |
+| GET | `/api/v2/documents` | All documents |
+| GET | `/api/v2/documents/{id}` | Document by ID |
+| GET | `/api/v2/documents/export` | CSV export (admin-only) |
+| GET | `/api/v2/deviations` | All deviations |
+| GET | `/api/v2/audits` | All audits |
+| GET | `/api/v2/cases` | All cases |
+| GET | `/api/v2/users` | All users |
+
+---
+
+## Infrastructure
+
+The backend registers **Elasticsearch** (document search), **Redis** (caching), and **Quartz** (scheduled jobs) in the DI container — but all use **fake/in-memory implementations** so no external services are needed to run the demo.
 
 ---
 
@@ -215,16 +216,16 @@ This project is pre-configured for agentic development with Claude Code.
 
 | Allow | Deny |
 |-------|------|
-| `dotnet *`, `npm *`, `cd *`, `ls *`, `cat *` | `rm -rf *`, `dotnet ef database update *` |
+| `dotnet *`, `npm *`, `git *`, `cd *`, `ls *`, `cat *`, `mkdir *` | `rm -rf *`, `dotnet ef database update *` |
 
 ---
 
-## Workshop task: YT-1234
+## Workshop tasks
 
-There's a **known bug** in `backend/src/Services/CustomerService.cs`:
+There's a **known bug** in `backend/src/Services/DeviationService.cs`:
 
-`GetAllAsync()` filters `IsDeleted`, but `GetByIdAsync()` doesn't — so deleted customers are invisible in the list but still accessible by ID. This is used in the live demo.
+`GetAllAsync()` filters out certain deviations, but `GetByIdAsync()` doesn't apply the same filter — so deviation 5 is invisible in the list but still accessible by ID. This is used in the live demo.
 
-The main feature task is **CSV export** (YT-1234):
-- Backend endpoint exists: `GET /api/v2/customers/export`
-- Frontend call is stubbed in `frontend-vue/src/services/api.ts` (commented out)
+The main feature task is **document CSV export** (GH-2):
+- Backend endpoint exists: `GET /api/v2/documents/export`
+- Frontend call is stubbed in `frontend/src/services/api.js` (commented out)

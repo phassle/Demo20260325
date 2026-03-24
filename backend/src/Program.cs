@@ -1,5 +1,6 @@
 using Serilog;
-using PortCom.Demo.Services;
+using Quartz;
+using Centuri.Demo.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,11 +8,17 @@ builder.Host.UseSerilog((context, config) =>
     config.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddControllers();
-builder.Services.AddScoped<ICustomerService, CustomerService>();
-builder.Services.AddScoped<IFoodOrderService, FoodOrderService>();
-builder.Services.AddScoped<IMenuItemService, MenuItemService>();
-builder.Services.AddScoped<ICustomerReviewService, CustomerReviewService>();
-builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IDocumentService, DocumentService>();
+builder.Services.AddScoped<IDeviationService, DeviationService>();
+builder.Services.AddScoped<IAuditService, AuditService>();
+builder.Services.AddScoped<ICaseService, CaseService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ISearchService, FakeSearchService>();
+builder.Services.AddSingleton<ICacheService, FakeCacheService>();
+builder.Services.AddSingleton<ISchedulerService, FakeSchedulerService>();
+
+builder.Services.AddQuartz(q => { });
+builder.Services.AddQuartzHostedService();
 
 var app = builder.Build();
 
