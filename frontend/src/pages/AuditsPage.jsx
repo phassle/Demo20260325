@@ -2,9 +2,9 @@ import { useApiData } from '../hooks/useApiData';
 import { auditApi } from '../services/api';
 
 const statusBadge = {
-  Planned: 'badge-blue',
-  InProgress: 'badge-yellow',
-  Completed: 'badge-green',
+  Planned: 'badge-glow-blue',
+  InProgress: 'badge-glow-yellow',
+  Completed: 'badge-glow-green',
 };
 
 export function AuditsPage() {
@@ -37,7 +37,7 @@ export function AuditsPage() {
               <td>{audit.title}</td>
               <td>{audit.type}</td>
               <td>
-                <span className={`badge ${statusBadge[audit.status] || 'badge-gray'}`}>
+                <span className={`badge ${statusBadge[audit.status] || 'badge-glow-gray'}`}>
                   {audit.status}
                 </span>
               </td>

@@ -2,10 +2,10 @@ import { useApiData } from '../hooks/useApiData';
 import { userApi } from '../services/api';
 
 const roleBadge = {
-  Admin: 'badge-red',
-  QualityManager: 'badge-blue',
-  Auditor: 'badge-yellow',
-  Viewer: 'badge-gray',
+  Admin: 'badge-glow-violet',
+  QualityManager: 'badge-glow-violet',
+  Auditor: 'badge-glow-violet',
+  Viewer: 'badge-glow-gray',
 };
 
 export function UsersPage() {
@@ -37,7 +37,7 @@ export function UsersPage() {
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td>
-                <span className={`badge ${roleBadge[user.role] || 'badge-gray'}`}>
+                <span className={`badge ${roleBadge[user.role] || 'badge-glow-gray'}`}>
                   {user.role}
                 </span>
               </td>

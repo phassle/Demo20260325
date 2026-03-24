@@ -105,24 +105,24 @@
 
 > **Write these tests FIRST. They MUST FAIL before implementation begins.**
 
-- [ ] T028 [US2] 🔴 Write failing test ACC-2.1 in `frontend/src/__tests__/us2-dark-theme.test.jsx`: render Layout inside MemoryRouter; assert root app-shell element has className referencing dark theme (e.g., includes "dark" or uses CSS custom property token); assert content area className references surface tier; verify `npx vitest run` → RED (jsdom note: assert classNames not computed styles)
-- [ ] T029 [US2] 🔴 Write failing test ACC-2.2 in `frontend/src/__tests__/us2-cta-gradient.test.jsx`: render DocumentsPage (has "Export CSV" button); assert `.btn-primary` element exists with gradient-specific className (e.g., "btn-primary" class is present and style.css defines it with gradient); verify → RED (jsdom note: assert className presence, not computed background-image)
-- [ ] T030 [US2] 🔴 Write failing test ACC-2.3 in `frontend/src/__tests__/us2-glow-chips.test.jsx`: render DocumentsPage with mocked data containing documents with various statuses; assert each status badge has a glow-chip className (e.g., "badge-glow-green", "badge-glow-red") instead of old solid badge classes; verify → RED
-- [ ] T031 [US2] 🔴 Write failing test ACC-2.4 in `frontend/src/__tests__/us2-glassmorphism.test.jsx`: render Header component; assert header element has className indicating glassmorphic styling (e.g., "header-glass" or "header" class present while style.css defines backdrop-filter); verify → RED (jsdom note: assert className, not computed backdrop-filter)
-- [ ] T032 [US2] 🔴 Write failing test ACC-2.5 in `frontend/src/__tests__/us2-radius.test.jsx`: render SettingsPage (has form inputs and buttons); assert `.btn` elements have className with radius token or inline style >= 12px; assert `.form-input` elements similarly; verify → RED
-- [ ] T032b [US2] 🔴 Write failing test ACC-2.6 in `frontend/src/__tests__/us2-empty-state.test.jsx`: render DocumentsPage with mocked fetch returning empty array; assert empty state message is rendered with dark theme styling (not default browser text); assert background matches surface tier; verify → RED
-- [ ] T032c [US2] 🔴 Write failing test ACC-2.7 in `frontend/src/__tests__/us2-sidebar-dark.test.jsx`: render Sidebar inside MemoryRouter at route "/documents"; assert sidebar element has dark surface background className; assert active NavLink has teal glow indicator className; assert inactive links do not have teal glow; verify → RED
+- [x] T028 [US2] 🔴 Write failing test ACC-2.1 in `frontend/src/__tests__/us2-dark-theme.test.jsx`: render Layout inside MemoryRouter; assert root app-shell element has className referencing dark theme (e.g., includes "dark" or uses CSS custom property token); assert content area className references surface tier; verify `npx vitest run` → RED (jsdom note: assert classNames not computed styles)
+- [x] T029 [US2] 🔴 Write failing test ACC-2.2 in `frontend/src/__tests__/us2-cta-gradient.test.jsx`: render DocumentsPage (has "Export CSV" button); assert `.btn-primary` element exists with gradient-specific className (e.g., "btn-primary" class is present and style.css defines it with gradient); verify → RED (jsdom note: assert className presence, not computed background-image)
+- [x] T030 [US2] 🔴 Write failing test ACC-2.3 in `frontend/src/__tests__/us2-glow-chips.test.jsx`: render DocumentsPage with mocked data containing documents with various statuses; assert each status badge has a glow-chip className (e.g., "badge-glow-green", "badge-glow-red") instead of old solid badge classes; verify → RED
+- [x] T031 [US2] 🔴 Write failing test ACC-2.4 in `frontend/src/__tests__/us2-glassmorphism.test.jsx`: render Header component; assert header element has className indicating glassmorphic styling (e.g., "header-glass" or "header" class present while style.css defines backdrop-filter); verify → RED (jsdom note: assert className, not computed backdrop-filter)
+- [x] T032 [US2] 🔴 Write failing test ACC-2.5 in `frontend/src/__tests__/us2-radius.test.jsx`: render SettingsPage (has form inputs and buttons); assert `.btn` elements have className with radius token or inline style >= 12px; assert `.form-input` elements similarly; verify → RED
+- [x] T032b [US2] 🔴 Write failing test ACC-2.6 in `frontend/src/__tests__/us2-empty-state.test.jsx`: render DocumentsPage with mocked fetch returning empty array; assert empty state message is rendered with dark theme styling (not default browser text); assert background matches surface tier; verify → RED
+- [x] T032c [US2] 🔴 Write failing test ACC-2.7 in `frontend/src/__tests__/us2-sidebar-dark.test.jsx`: render Sidebar inside MemoryRouter at route "/documents"; assert sidebar element has dark surface background className; assert active NavLink has teal glow indicator className; assert inactive links do not have teal glow; verify → RED
 
 ### 🟢 Implementation for User Story 2
 
-- [ ] T033 [US2] 🟢 Full rewrite of `frontend/src/style.css`: add CSS custom properties for all design tokens (colors, typography, spacing, radius from data-model.md); rewrite global reset for dark theme (body background `--color-base`, text `--color-on-surface`); rewrite all component classes using tonal surface hierarchy instead of borders; implement glow chip badge classes with 10% opacity backgrounds; implement gradient CTA button styles; implement glassmorphic header styles (backdrop-filter blur 20px); implement ghost border utility (outline-variant at 15% opacity); set minimum border-radius 12px on interactive elements; use navy-tinted shadows (no #000000); add responsive breakpoint for 390px mobile
-- [ ] T034 [US2] 🟢 Update `frontend/src/components/layout/Sidebar.jsx`: apply dark surface background (`--color-surface`), teal glow on active NavLink, section titles with `--color-on-surface` muted opacity
-- [ ] T035 [US2] 🟢 Update `frontend/src/components/layout/Header.jsx`: apply glassmorphic styling (semi-transparent background + backdrop-blur), restyle search input with ghost border, update avatar and user info colors for dark theme
-- [ ] T036 [US2] 🟢 Update `frontend/src/components/layout/Layout.jsx`: apply surface hierarchy to content area (`--color-base` on outer, `--color-surface-container-low` on content wrapper)
-- [ ] T037 [US2] 🟢 Update badge CSS class names across all page files: replace old solid badge classes (badge-green, badge-red, etc.) with new glow chip classes (badge-glow-green, badge-glow-red, etc.) defined in T033. This is a class rename pass only — page-specific layout changes happen in US3 (T047-T054).
-- [ ] T038 [US2] 🟢 Update loading and error state styling in all pages to use dark theme colors (not default browser styling)
-- [ ] T039 [US2] Run `npx vitest run` → GREEN (all ACC-2.x tests pass, US1 tests still green)
-- [ ] T040 [US2] Commit: "apply Centuri Prism dark design system globally"
+- [x] T033 [US2] 🟢 Full rewrite of `frontend/src/style.css`: add CSS custom properties for all design tokens (colors, typography, spacing, radius from data-model.md); rewrite global reset for dark theme (body background `--color-base`, text `--color-on-surface`); rewrite all component classes using tonal surface hierarchy instead of borders; implement glow chip badge classes with 10% opacity backgrounds; implement gradient CTA button styles; implement glassmorphic header styles (backdrop-filter blur 20px); implement ghost border utility (outline-variant at 15% opacity); set minimum border-radius 12px on interactive elements; use navy-tinted shadows (no #000000); add responsive breakpoint for 390px mobile
+- [x] T034 [US2] 🟢 Update `frontend/src/components/layout/Sidebar.jsx`: apply dark surface background (`--color-surface`), teal glow on active NavLink, section titles with `--color-on-surface` muted opacity
+- [x] T035 [US2] 🟢 Update `frontend/src/components/layout/Header.jsx`: apply glassmorphic styling (semi-transparent background + backdrop-blur), restyle search input with ghost border, update avatar and user info colors for dark theme
+- [x] T036 [US2] 🟢 Update `frontend/src/components/layout/Layout.jsx`: apply surface hierarchy to content area (`--color-base` on outer, `--color-surface-container-low` on content wrapper)
+- [x] T037 [US2] 🟢 Update badge CSS class names across all page files: replace old solid badge classes (badge-green, badge-red, etc.) with new glow chip classes (badge-glow-green, badge-glow-red, etc.) defined in T033. This is a class rename pass only — page-specific layout changes happen in US3 (T047-T054).
+- [x] T038 [US2] 🟢 Update loading and error state styling in all pages to use dark theme colors (not default browser styling)
+- [x] T039 [US2] Run `npx vitest run` → GREEN (all ACC-2.x tests pass, US1 tests still green)
+- [x] T040 [US2] Commit: "apply Centuri Prism dark design system globally"
 
 **Checkpoint**: Every page shows dark theme. All US1 + US2 tests green.
 
@@ -146,24 +146,24 @@
 
 > **Write these tests FIRST. They MUST FAIL before implementation begins.**
 
-- [ ] T041 [US3] 🔴 Write failing test ACC-3.1 in `frontend/src/__tests__/us3-dashboard.test.jsx`: render DashboardPage with mocked API data; assert KPI cards exist with glow chip styling (card elements have semi-transparent accent background); assert at least one gradient CTA button exists; verify → RED
-- [ ] T042 [US3] 🔴 Write failing test ACC-3.2 in `frontend/src/__tests__/us3-documents.test.jsx`: render DocumentsPage with mocked documents including various statuses; assert table rows use alternating tonal backgrounds (no hard borders between rows); assert status badges use glow chip classes; verify → RED
-- [ ] T043 [US3] 🔴 Write failing test ACC-3.3 in `frontend/src/__tests__/us3-documents-mobile.test.jsx`: render DocumentsPage with mocked data; set container width to 390px; assert no element has `overflow-x: scroll` or extends beyond viewport; assert content reflows to card-based layout (e.g., table is hidden and cards are shown, or table adapts); verify → RED
-- [ ] T044 [US3] 🔴 Write failing test ACC-3.4 in `frontend/src/__tests__/us3-users.test.jsx`: render UsersPage with mocked users including roles (Admin, QualityManager, Auditor, Viewer); assert role badges use secondary color (`--color-secondary` / violet `#ac8aff`); assert active/inactive status indicators are rendered with appropriate colors; verify → RED
-- [ ] T045 [US3] 🔴 Write failing test ACC-3.5 in `frontend/src/__tests__/us3-settings.test.jsx`: render SettingsPage; assert form inputs have ghost border styling (className using outline-variant token, not solid opaque border class); verify → RED
+- [x] T041 [US3] 🔴 Write failing test ACC-3.1 in `frontend/src/__tests__/us3-dashboard.test.jsx`: render DashboardPage with mocked API data; assert KPI cards exist with glow chip styling (card elements have semi-transparent accent background); assert at least one gradient CTA button exists; verify → RED
+- [x] T042 [US3] 🔴 Write failing test ACC-3.2 in `frontend/src/__tests__/us3-documents.test.jsx`: render DocumentsPage with mocked documents including various statuses; assert table rows use alternating tonal backgrounds (no hard borders between rows); assert status badges use glow chip classes; verify → RED
+- [x] T043 [US3] 🔴 Write failing test ACC-3.3 in `frontend/src/__tests__/us3-documents-mobile.test.jsx`: render DocumentsPage with mocked data; set container width to 390px; assert no element has `overflow-x: scroll` or extends beyond viewport; assert content reflows to card-based layout (e.g., table is hidden and cards are shown, or table adapts); verify → RED
+- [x] T044 [US3] 🔴 Write failing test ACC-3.4 in `frontend/src/__tests__/us3-users.test.jsx`: render UsersPage with mocked users including roles (Admin, QualityManager, Auditor, Viewer); assert role badges use secondary color (`--color-secondary` / violet `#ac8aff`); assert active/inactive status indicators are rendered with appropriate colors; verify → RED
+- [x] T045 [US3] 🔴 Write failing test ACC-3.5 in `frontend/src/__tests__/us3-settings.test.jsx`: render SettingsPage; assert form inputs have ghost border styling (className using outline-variant token, not solid opaque border class); verify → RED
 
 ### 🟢 Implementation for User Story 3
 
-- [ ] T047 [US3] 🟢 Redesign `frontend/src/pages/DashboardPage.jsx`: KPI summary cards with glow chip styling per Operations Dashboard Stitch screen (ID: a4c2277a2e4d4a6ca3c7e9e69fa16e4f); gradient CTA buttons; card layout matching Stitch composition
-- [ ] T048 [US3] 🟢 Redesign `frontend/src/pages/DocumentsPage.jsx`: tonal row table (alternating surface tiers, no border separators); status glow chips; match Document Library Stitch screen (ID: 2b48e2769e8b4048b9bfa5bb4c7273bf); add responsive 390px layout per Document Library Mobile screen (ID: d460383c50ec4ee28943ae127add8abe) — card-based reflow, no horizontal scroll
-- [ ] T049 [P] [US3] 🟢 Redesign `frontend/src/pages/DeviationsPage.jsx`: severity badges using tertiary (`--color-tertiary`) for High and error (`--color-error`) for Critical; tonal row table matching Documents pattern
-- [ ] T050 [P] [US3] 🟢 Redesign `frontend/src/pages/AuditsPage.jsx`: audit status with surface-tier cards; tonal row table matching Documents pattern
-- [ ] T051 [P] [US3] 🟢 Redesign `frontend/src/pages/CasesPage.jsx`: case type categorization with secondary color (`--color-secondary`); tonal row table matching Documents pattern
-- [ ] T052 [US3] 🟢 Redesign `frontend/src/pages/UsersPage.jsx`: role badges using secondary violet (`--color-secondary`); activity indicators with colored status dots; match User Management Stitch screen (ID: a217a4dd81274a94a507b3600c7e4cbd)
-- [ ] T053 [US3] 🟢 Redesign `frontend/src/pages/SettingsPage.jsx`: form inputs with ghost borders (outline-variant at 15% opacity); match System Settings Stitch screen (ID: d45f62f6fd904f7a9e71b63b66066e34)
-- [ ] T054 [P] [US3] 🟢 Redesign `frontend/src/pages/HelpPage.jsx`: FAQ cards with `--color-surface-container-low` background, dark theme typography
-- [ ] T055 [US3] Run `npx vitest run` → GREEN (all ACC-3.x tests pass, US1 + US2 tests still green)
-- [ ] T056 [US3] Commit: "match page-specific Stitch design references"
+- [x] T047 [US3] 🟢 Redesign `frontend/src/pages/DashboardPage.jsx`: KPI summary cards with glow chip styling per Operations Dashboard Stitch screen (ID: a4c2277a2e4d4a6ca3c7e9e69fa16e4f); gradient CTA buttons; card layout matching Stitch composition
+- [x] T048 [US3] 🟢 Redesign `frontend/src/pages/DocumentsPage.jsx`: tonal row table (alternating surface tiers, no border separators); status glow chips; match Document Library Stitch screen (ID: 2b48e2769e8b4048b9bfa5bb4c7273bf); add responsive 390px layout per Document Library Mobile screen (ID: d460383c50ec4ee28943ae127add8abe) — card-based reflow, no horizontal scroll
+- [x] T049 [P] [US3] 🟢 Redesign `frontend/src/pages/DeviationsPage.jsx`: severity badges using tertiary (`--color-tertiary`) for High and error (`--color-error`) for Critical; tonal row table matching Documents pattern
+- [x] T050 [P] [US3] 🟢 Redesign `frontend/src/pages/AuditsPage.jsx`: audit status with surface-tier cards; tonal row table matching Documents pattern
+- [x] T051 [P] [US3] 🟢 Redesign `frontend/src/pages/CasesPage.jsx`: case type categorization with secondary color (`--color-secondary`); tonal row table matching Documents pattern
+- [x] T052 [US3] 🟢 Redesign `frontend/src/pages/UsersPage.jsx`: role badges using secondary violet (`--color-secondary`); activity indicators with colored status dots; match User Management Stitch screen (ID: a217a4dd81274a94a507b3600c7e4cbd)
+- [x] T053 [US3] 🟢 Redesign `frontend/src/pages/SettingsPage.jsx`: form inputs with ghost borders (outline-variant at 15% opacity); match System Settings Stitch screen (ID: d45f62f6fd904f7a9e71b63b66066e34)
+- [x] T054 [P] [US3] 🟢 Redesign `frontend/src/pages/HelpPage.jsx`: FAQ cards with `--color-surface-container-low` background, dark theme typography
+- [x] T055 [US3] Run `npx vitest run` → GREEN (all ACC-3.x tests pass, US1 + US2 tests still green)
+- [x] T056 [US3] Commit: "match page-specific Stitch design references"
 
 **Checkpoint**: All pages match their design references. Documents responsive at 390px. All tests green.
 
@@ -173,13 +173,13 @@
 
 **Purpose**: Final verification, edge cases, full test suite confirmation
 
-- [ ] T057 Verify edge case: API error states styled with dark theme across all data-fetching pages
-- [ ] T058 Verify edge case: viewport widths between 390px and desktop — no overflow or layout breaks
-- [ ] T059 Verify edge case: long text in table cells truncates gracefully
-- [ ] T060 Run full test suite: `cd frontend && npx vitest run` — all 14 ACC tests green
-- [ ] T061 Run `cd frontend && npm run build` — confirm production build succeeds with zero errors
-- [ ] T062 Run `cd backend && dotnet test` — confirm backend tests still pass (regression check)
-- [ ] T063 Run quickstart.md verification checklist (all US1/US2/US3 manual checks)
+- [x] T057 Verify edge case: API error states styled with dark theme across all data-fetching pages
+- [x] T058 Verify edge case: viewport widths between 390px and desktop — no overflow or layout breaks
+- [x] T059 Verify edge case: long text in table cells truncates gracefully
+- [x] T060 Run full test suite: `cd frontend && npx vitest run` — all 14 ACC tests green
+- [x] T061 Run `cd frontend && npm run build` — confirm production build succeeds with zero errors
+- [x] T062 Run `cd backend && dotnet test` — confirm backend tests still pass (regression check)
+- [x] T063 Run quickstart.md verification checklist (all US1/US2/US3 manual checks)
 
 ---
 

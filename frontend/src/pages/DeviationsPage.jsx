@@ -2,17 +2,17 @@ import { useApiData } from '../hooks/useApiData';
 import { deviationApi } from '../services/api';
 
 const severityBadge = {
-  Low: 'badge-gray',
-  Medium: 'badge-yellow',
-  High: 'badge-orange',
-  Critical: 'badge-red',
+  Low: 'badge-glow-gray',
+  Medium: 'badge-glow-yellow',
+  High: 'badge-glow-orange',
+  Critical: 'badge-glow-red',
 };
 
 const statusBadge = {
-  Open: 'badge-red',
-  InProgress: 'badge-yellow',
-  Resolved: 'badge-green',
-  Closed: 'badge-gray',
+  Open: 'badge-glow-red',
+  InProgress: 'badge-glow-yellow',
+  Resolved: 'badge-glow-green',
+  Closed: 'badge-glow-gray',
 };
 
 export function DeviationsPage() {
@@ -44,12 +44,12 @@ export function DeviationsPage() {
               <td>{dev.id}</td>
               <td>{dev.title}</td>
               <td>
-                <span className={`badge ${severityBadge[dev.severity] || 'badge-gray'}`}>
+                <span className={`badge ${severityBadge[dev.severity] || 'badge-glow-gray'}`}>
                   {dev.severity}
                 </span>
               </td>
               <td>
-                <span className={`badge ${statusBadge[dev.status] || 'badge-gray'}`}>
+                <span className={`badge ${statusBadge[dev.status] || 'badge-glow-gray'}`}>
                   {dev.status}
                 </span>
               </td>

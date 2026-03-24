@@ -2,17 +2,17 @@ import { useApiData } from '../hooks/useApiData';
 import { caseApi } from '../services/api';
 
 const priorityBadge = {
-  Low: 'badge-gray',
-  Medium: 'badge-yellow',
-  High: 'badge-orange',
-  Critical: 'badge-red',
+  Low: 'badge-glow-gray',
+  Medium: 'badge-glow-yellow',
+  High: 'badge-glow-orange',
+  Critical: 'badge-glow-red',
 };
 
 const statusBadge = {
-  Open: 'badge-red',
-  InProgress: 'badge-yellow',
-  Resolved: 'badge-green',
-  Closed: 'badge-gray',
+  Open: 'badge-glow-red',
+  InProgress: 'badge-glow-yellow',
+  Resolved: 'badge-glow-green',
+  Closed: 'badge-glow-gray',
 };
 
 export function CasesPage() {
@@ -45,12 +45,12 @@ export function CasesPage() {
               <td>{c.title}</td>
               <td>{c.type}</td>
               <td>
-                <span className={`badge ${priorityBadge[c.priority] || 'badge-gray'}`}>
+                <span className={`badge ${priorityBadge[c.priority] || 'badge-glow-gray'}`}>
                   {c.priority}
                 </span>
               </td>
               <td>
-                <span className={`badge ${statusBadge[c.status] || 'badge-gray'}`}>
+                <span className={`badge ${statusBadge[c.status] || 'badge-glow-gray'}`}>
                   {c.status}
                 </span>
               </td>

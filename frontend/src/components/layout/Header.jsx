@@ -1,6 +1,6 @@
 export function Header({ title }) {
   return (
-    <header className="header">
+    <header className="header header-glass">
       <h1 className="header-title">{title}</h1>
       <div className="header-right">
         <input type="text" className="header-search" placeholder="Search..." />

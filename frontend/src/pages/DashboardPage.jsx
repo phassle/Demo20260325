@@ -34,26 +34,29 @@ export function DashboardPage() {
   return (
     <div>
       <div className="dashboard-grid">
-        <div className="card">
+        <div className="card kpi-card">
           <div className="card-title">Open Deviations</div>
           <div className="card-value">{openDeviations}</div>
         </div>
-        <div className="card">
+        <div className="card kpi-card">
           <div className="card-title">Pending Audits</div>
           <div className="card-value">{pendingAudits}</div>
         </div>
-        <div className="card">
+        <div className="card kpi-card">
           <div className="card-title">Total Documents</div>
           <div className="card-value">{totalDocuments}</div>
         </div>
-        <div className="card">
+        <div className="card kpi-card">
           <div className="card-title">Active Cases</div>
           <div className="card-value">{activeCases}</div>
         </div>
-        <div className="card">
+        <div className="card kpi-card">
           <div className="card-title">Critical / High Deviations</div>
           <div className="card-value">{criticalDeviations}</div>
         </div>
+      </div>
+      <div style={{ marginTop: '1.5rem' }}>
+        <button className="btn btn-primary btn-gradient radius-lg">View All Deviations</button>
       </div>
     </div>
   );

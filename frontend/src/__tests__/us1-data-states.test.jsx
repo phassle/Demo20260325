@@ -39,7 +39,9 @@ describe('ACC-1.3: Data pages with loading, error, and data states', () => {
         <DocumentsPage />
       </MemoryRouter>
     );
-    expect(await screen.findByText('SOP-001')).toBeInTheDocument();
-    expect(screen.getByText('WI-002')).toBeInTheDocument();
+    const sop = await screen.findAllByText('SOP-001');
+    expect(sop[0]).toBeInTheDocument();
+    const wi = screen.getAllByText('WI-002');
+    expect(wi[0]).toBeInTheDocument();
   });
 });

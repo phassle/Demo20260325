@@ -21,7 +21,7 @@ export function SettingsPage() {
             <label className="form-label" htmlFor="orgName">Organization Name</label>
             <input
               id="orgName"
-              className="form-input"
+              className="form-input radius-md ghost-border"
               type="text"
               value={orgName}
               onChange={(e) => setOrgName(e.target.value)}
@@ -31,13 +31,13 @@ export function SettingsPage() {
             <label className="form-label" htmlFor="contactEmail">Contact Email</label>
             <input
               id="contactEmail"
-              className="form-input"
+              className="form-input radius-md ghost-border"
               type="email"
               value={contactEmail}
               onChange={(e) => setContactEmail(e.target.value)}
             />
           </div>
-          <button type="submit" className="btn btn-primary">Save</button>
+          <button type="submit" className="btn btn-primary btn-gradient radius-lg">Save</button>
         </form>
       </div>
     </div>
