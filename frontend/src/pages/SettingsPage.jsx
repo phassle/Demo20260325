@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useState } from 'react';
 
 export function SettingsPage() {
   const [orgName, setOrgName] = useState('Centuri AB');
@@ -12,32 +12,32 @@ export function SettingsPage() {
 
   return (
     <div>
-      <div class="page-header">
-        <h2 class="page-title">Settings</h2>
+      <div className="page-header">
+        <h2 className="page-title">Settings</h2>
       </div>
-      <div class="card" style={{ maxWidth: '480px' }}>
+      <div className="card" style={{ maxWidth: '480px' }}>
         <form onSubmit={handleSave}>
-          <div class="form-group">
-            <label class="form-label" for="orgName">Organization Name</label>
+          <div className="form-group">
+            <label className="form-label" htmlFor="orgName">Organization Name</label>
             <input
               id="orgName"
-              class="form-input"
+              className="form-input radius-md ghost-border"
               type="text"
               value={orgName}
-              onInput={(e) => setOrgName(e.target.value)}
+              onChange={(e) => setOrgName(e.target.value)}
             />
           </div>
-          <div class="form-group">
-            <label class="form-label" for="contactEmail">Contact Email</label>
+          <div className="form-group">
+            <label className="form-label" htmlFor="contactEmail">Contact Email</label>
             <input
               id="contactEmail"
-              class="form-input"
+              className="form-input radius-md ghost-border"
               type="email"
               value={contactEmail}
-              onInput={(e) => setContactEmail(e.target.value)}
+              onChange={(e) => setContactEmail(e.target.value)}
             />
           </div>
-          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="submit" className="btn btn-primary btn-gradient radius-lg">Save</button>
         </form>
       </div>
     </div>

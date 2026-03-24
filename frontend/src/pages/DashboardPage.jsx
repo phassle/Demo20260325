@@ -28,32 +28,35 @@ export function DashboardPage() {
   const anyLoading = docs.loading || devs.loading || audits.loading || cases.loading;
   const anyError = docs.error || devs.error || audits.error || cases.error;
 
-  if (anyLoading) return <div class="loading">Loading dashboard...</div>;
-  if (anyError) return <div class="error">Error loading data: {anyError}</div>;
+  if (anyLoading) return <div className="loading">Loading dashboard...</div>;
+  if (anyError) return <div className="error">Error loading data: {anyError}</div>;
 
   return (
     <div>
-      <div class="dashboard-grid">
-        <div class="card">
-          <div class="card-title">Open Deviations</div>
-          <div class="card-value">{openDeviations}</div>
+      <div className="dashboard-grid">
+        <div className="card kpi-card">
+          <div className="card-title">Open Deviations</div>
+          <div className="card-value">{openDeviations}</div>
         </div>
-        <div class="card">
-          <div class="card-title">Pending Audits</div>
-          <div class="card-value">{pendingAudits}</div>
+        <div className="card kpi-card">
+          <div className="card-title">Pending Audits</div>
+          <div className="card-value">{pendingAudits}</div>
         </div>
-        <div class="card">
-          <div class="card-title">Total Documents</div>
-          <div class="card-value">{totalDocuments}</div>
+        <div className="card kpi-card">
+          <div className="card-title">Total Documents</div>
+          <div className="card-value">{totalDocuments}</div>
         </div>
-        <div class="card">
-          <div class="card-title">Active Cases</div>
-          <div class="card-value">{activeCases}</div>
+        <div className="card kpi-card">
+          <div className="card-title">Active Cases</div>
+          <div className="card-value">{activeCases}</div>
         </div>
-        <div class="card">
-          <div class="card-title">Critical / High Deviations</div>
-          <div class="card-value">{criticalDeviations}</div>
+        <div className="card kpi-card">
+          <div className="card-title">Critical / High Deviations</div>
+          <div className="card-value">{criticalDeviations}</div>
         </div>
+      </div>
+      <div style={{ marginTop: '1.5rem' }}>
+        <button className="btn btn-primary btn-gradient radius-lg">View All Deviations</button>
       </div>
     </div>
   );

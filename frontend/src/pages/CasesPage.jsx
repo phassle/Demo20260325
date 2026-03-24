@@ -2,31 +2,31 @@ import { useApiData } from '../hooks/useApiData';
 import { caseApi } from '../services/api';
 
 const priorityBadge = {
-  Low: 'badge-gray',
-  Medium: 'badge-yellow',
-  High: 'badge-orange',
-  Critical: 'badge-red',
+  Low: 'badge-glow-gray',
+  Medium: 'badge-glow-yellow',
+  High: 'badge-glow-orange',
+  Critical: 'badge-glow-red',
 };
 
 const statusBadge = {
-  Open: 'badge-red',
-  InProgress: 'badge-yellow',
-  Resolved: 'badge-green',
-  Closed: 'badge-gray',
+  Open: 'badge-glow-red',
+  InProgress: 'badge-glow-yellow',
+  Resolved: 'badge-glow-green',
+  Closed: 'badge-glow-gray',
 };
 
 export function CasesPage() {
   const { data, loading, error } = useApiData(caseApi.getAll);
 
-  if (loading) return <div class="loading">Loading cases...</div>;
-  if (error) return <div class="error">Error: {error}</div>;
+  if (loading) return <div className="loading">Loading cases...</div>;
+  if (error) return <div className="error">Error: {error}</div>;
 
   return (
     <div>
-      <div class="page-header">
-        <h2 class="page-title">All Cases</h2>
+      <div className="page-header">
+        <h2 className="page-title">All Cases</h2>
       </div>
-      <table class="data-table">
+      <table className="data-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -45,12 +45,12 @@ export function CasesPage() {
               <td>{c.title}</td>
               <td>{c.type}</td>
               <td>
-                <span class={`badge ${priorityBadge[c.priority] || 'badge-gray'}`}>
+                <span className={`badge ${priorityBadge[c.priority] || 'badge-glow-gray'}`}>
                   {c.priority}
                 </span>
               </td>
               <td>
-                <span class={`badge ${statusBadge[c.status] || 'badge-gray'}`}>
+                <span className={`badge ${statusBadge[c.status] || 'badge-glow-gray'}`}>
                   {c.status}
                 </span>
               </td>

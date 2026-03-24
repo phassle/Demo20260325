@@ -2,31 +2,31 @@ import { useApiData } from '../hooks/useApiData';
 import { deviationApi } from '../services/api';
 
 const severityBadge = {
-  Low: 'badge-gray',
-  Medium: 'badge-yellow',
-  High: 'badge-orange',
-  Critical: 'badge-red',
+  Low: 'badge-glow-gray',
+  Medium: 'badge-glow-yellow',
+  High: 'badge-glow-orange',
+  Critical: 'badge-glow-red',
 };
 
 const statusBadge = {
-  Open: 'badge-red',
-  InProgress: 'badge-yellow',
-  Resolved: 'badge-green',
-  Closed: 'badge-gray',
+  Open: 'badge-glow-red',
+  InProgress: 'badge-glow-yellow',
+  Resolved: 'badge-glow-green',
+  Closed: 'badge-glow-gray',
 };
 
 export function DeviationsPage() {
   const { data, loading, error } = useApiData(deviationApi.getAll);
 
-  if (loading) return <div class="loading">Loading deviations...</div>;
-  if (error) return <div class="error">Error: {error}</div>;
+  if (loading) return <div className="loading">Loading deviations...</div>;
+  if (error) return <div className="error">Error: {error}</div>;
 
   return (
     <div>
-      <div class="page-header">
-        <h2 class="page-title">All Deviations</h2>
+      <div className="page-header">
+        <h2 className="page-title">All Deviations</h2>
       </div>
-      <table class="data-table">
+      <table className="data-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -44,12 +44,12 @@ export function DeviationsPage() {
               <td>{dev.id}</td>
               <td>{dev.title}</td>
               <td>
-                <span class={`badge ${severityBadge[dev.severity] || 'badge-gray'}`}>
+                <span className={`badge ${severityBadge[dev.severity] || 'badge-glow-gray'}`}>
                   {dev.severity}
                 </span>
               </td>
               <td>
-                <span class={`badge ${statusBadge[dev.status] || 'badge-gray'}`}>
+                <span className={`badge ${statusBadge[dev.status] || 'badge-glow-gray'}`}>
                   {dev.status}
                 </span>
               </td>
