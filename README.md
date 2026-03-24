@@ -135,7 +135,7 @@ claude /simplify      # try it on your latest changes
 
 ```bash
 # Backend (terminal 1)
-cd backend && dotnet build && dotnet run
+cd backend && dotnet build && dotnet run --project src
 # → http://localhost:5000
 
 # Frontend (terminal 2)
@@ -156,7 +156,11 @@ cd backend && dotnet format        # code style check
 
 ```
 Centuri/
+├── AGENTS.md                    ← Root agent instructions (→ CLAUDE.md symlink)
+├── docs/
+│   └── architectural_patterns.md ← Cross-cutting patterns
 ├── backend/
+│   ├── AGENTS.md                ← Backend-specific agent instructions
 │   ├── Centuri.Demo.sln
 │   ├── src/
 │   │   ├── Controllers/         ← REST endpoints (/api/v2/...)
@@ -166,6 +170,7 @@ Centuri/
 │   │   └── Program.cs           ← DI, Serilog, Quartz, routing
 │   └── tests/                   ← xUnit test project
 ├── frontend/
+│   ├── AGENTS.md                ← Frontend-specific agent instructions
 │   ├── src/
 │   │   ├── pages/               ← Dashboard, Documents, Deviations, ...
 │   │   ├── components/          ← Layout, cards, tables
