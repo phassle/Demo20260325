@@ -10,15 +10,15 @@ const statusBadge = {
 export function AuditsPage() {
   const { data, loading, error } = useApiData(auditApi.getAll);
 
-  if (loading) return <div class="loading">Loading audits...</div>;
-  if (error) return <div class="error">Error: {error}</div>;
+  if (loading) return <div className="loading">Loading audits...</div>;
+  if (error) return <div className="error">Error: {error}</div>;
 
   return (
     <div>
-      <div class="page-header">
-        <h2 class="page-title">All Audits</h2>
+      <div className="page-header">
+        <h2 className="page-title">All Audits</h2>
       </div>
-      <table class="data-table">
+      <table className="data-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -37,7 +37,7 @@ export function AuditsPage() {
               <td>{audit.title}</td>
               <td>{audit.type}</td>
               <td>
-                <span class={`badge ${statusBadge[audit.status] || 'badge-gray'}`}>
+                <span className={`badge ${statusBadge[audit.status] || 'badge-gray'}`}>
                   {audit.status}
                 </span>
               </td>

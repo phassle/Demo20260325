@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'preact/hooks';
+import { useState, useEffect } from 'react';
 
 export function useApiData(fetchFn) {
   const [data, setData] = useState(null);

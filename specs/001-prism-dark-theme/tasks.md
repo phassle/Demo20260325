@@ -22,13 +22,13 @@
 
 **Purpose**: Swap Preact dependencies for React, add test framework, update build toolchain
 
-- [ ] T001 Replace Preact with React dependencies in `frontend/package.json`: remove preact, preact-router, @preact/preset-vite; add react, react-dom, react-router-dom, @vitejs/plugin-react
-- [ ] T002 Add test dependencies in `frontend/package.json` devDependencies: vitest, @testing-library/react, @testing-library/jest-dom, jsdom
-- [ ] T003 Run `npm install` in `frontend/` to generate updated lock file
-- [ ] T004 Switch Vite plugin from preact() to react() in `frontend/vite.config.js`; add test configuration: `test: { environment: 'jsdom', setupFiles: './src/test-setup.js' }`
-- [ ] T005 Create `frontend/src/test-setup.js`: import `@testing-library/jest-dom`
-- [ ] T006 Add `"test": "vitest run"` script to `frontend/package.json`
-- [ ] T007 Add Google Fonts with preconnect and display=swap in `frontend/index.html`: Plus Jakarta Sans (600,700) and Inter (400,500,600)
+- [x] T001 Replace Preact with React dependencies in `frontend/package.json`: remove preact, preact-router, @preact/preset-vite; add react, react-dom, react-router-dom, @vitejs/plugin-react
+- [x] T002 Add test dependencies in `frontend/package.json` devDependencies: vitest, @testing-library/react, @testing-library/jest-dom, jsdom
+- [x] T003 Run `npm install` in `frontend/` to generate updated lock file
+- [x] T004 Switch Vite plugin from preact() to react() in `frontend/vite.config.js`; add test configuration: `test: { environment: 'jsdom', setupFiles: './src/test-setup.js' }`
+- [x] T005 Create `frontend/src/test-setup.js`: import `@testing-library/jest-dom`
+- [x] T006 Add `"test": "vitest run"` script to `frontend/package.json`
+- [x] T007 Add Google Fonts with preconnect and display=swap in `frontend/index.html`: Plus Jakarta Sans (600,700) and Inter (400,500,600)
 
 **Checkpoint**: Build toolchain configured for React + Vitest. `npx vitest run` works (zero tests).
 
@@ -40,12 +40,12 @@
 
 **⚠️ CRITICAL**: No page migration or tests can run until this phase is complete
 
-- [ ] T008 Migrate `frontend/src/main.jsx`: replace `import { render } from 'preact'` with `import { createRoot } from 'react-dom/client'`; use `createRoot(document.getElementById('app')).render(<App />)`
-- [ ] T009 Migrate `frontend/src/app.jsx`: replace preact-router `<Router>` with react-router-dom `<BrowserRouter>`, `<Routes>`, `<Route>`; add `<Route path="*" element={<Navigate to="/" />} />` catch-all; use `useLocation()` hook for title management instead of `onChange` callback
-- [ ] T010 Migrate `frontend/src/hooks/useApiData.js`: change `import { useState, useEffect } from 'preact/hooks'` to `import { useState, useEffect } from 'react'`
-- [ ] T011 Migrate `frontend/src/components/layout/Layout.jsx`: change `class=` to `className=` throughout
-- [ ] T012 Migrate `frontend/src/components/layout/Sidebar.jsx`: replace manual `window.location.pathname` active-link detection with react-router-dom `<NavLink>` component; convert all `class=` to `className=`; convert `<a href>` links to `<NavLink to>`
-- [ ] T013 Migrate `frontend/src/components/layout/Header.jsx`: change `class=` to `className=` throughout
+- [x] T008 Migrate `frontend/src/main.jsx`: replace `import { render } from 'preact'` with `import { createRoot } from 'react-dom/client'`; use `createRoot(document.getElementById('app')).render(<App />)`
+- [x] T009 Migrate `frontend/src/app.jsx`: replace preact-router `<Router>` with react-router-dom `<BrowserRouter>`, `<Routes>`, `<Route>`; add `<Route path="*" element={<Navigate to="/" />} />` catch-all; use `useLocation()` hook for title management instead of `onChange` callback
+- [x] T010 Migrate `frontend/src/hooks/useApiData.js`: change `import { useState, useEffect } from 'preact/hooks'` to `import { useState, useEffect } from 'react'`
+- [x] T011 Migrate `frontend/src/components/layout/Layout.jsx`: change `class=` to `className=` throughout
+- [x] T012 Migrate `frontend/src/components/layout/Sidebar.jsx`: replace manual `window.location.pathname` active-link detection with react-router-dom `<NavLink>` component; convert all `class=` to `className=`; convert `<a href>` links to `<NavLink to>`
+- [x] T013 Migrate `frontend/src/components/layout/Header.jsx`: change `class=` to `className=` throughout
 
 **Checkpoint**: Layout shell renders in React. Sidebar navigation works with NavLink active state. Router handles all routes + 404 redirect.
 
@@ -66,23 +66,23 @@
 
 > **Write these tests FIRST. They MUST FAIL before implementation begins.**
 
-- [ ] T014 [US1] 🔴 Write failing test ACC-1.1 in `frontend/src/__tests__/us1-routes.test.jsx`: render App inside MemoryRouter for each of the 8 routes ("/", "/documents", "/deviations", "/audits", "/cases", "/users", "/settings", "/help"); mock `fetch` to return sample data for each API endpoint; assert each route renders its page component (e.g., DashboardPage renders 5 card elements, DocumentsPage renders a table, etc.); verify `npx vitest run` → RED (fails because pages still use Preact patterns)
-- [ ] T015 [US1] 🔴 Write failing test ACC-1.2 in `frontend/src/__tests__/us1-navigation.test.jsx`: render Sidebar inside MemoryRouter; simulate clicking each NavLink; assert the active CSS class is applied to the clicked link and removed from others; verify `npx vitest run` → RED (fails because Sidebar still uses `<a>` tags not NavLink)
-- [ ] T016 [US1] 🔴 Write failing test ACC-1.3 in `frontend/src/__tests__/us1-data-states.test.jsx`: render DocumentsPage (representative data page) inside MemoryRouter; test loading state: mock fetch that never resolves, assert "Loading..." text is rendered; test error state: mock fetch that rejects, assert error message is rendered; test data state: mock fetch that resolves with documents, assert table rows are rendered; verify `npx vitest run` → RED
+- [x] T014 [US1] 🔴 Write failing test ACC-1.1 in `frontend/src/__tests__/us1-routes.test.jsx`: render App inside MemoryRouter for each of the 8 routes ("/", "/documents", "/deviations", "/audits", "/cases", "/users", "/settings", "/help"); mock `fetch` to return sample data for each API endpoint; assert each route renders its page component (e.g., DashboardPage renders 5 card elements, DocumentsPage renders a table, etc.); verify `npx vitest run` → RED (fails because pages still use Preact patterns)
+- [x] T015 [US1] 🔴 Write failing test ACC-1.2 in `frontend/src/__tests__/us1-navigation.test.jsx`: render Sidebar inside MemoryRouter; simulate clicking each NavLink; assert the active CSS class is applied to the clicked link and removed from others; verify `npx vitest run` → RED (fails because Sidebar still uses `<a>` tags not NavLink)
+- [x] T016 [US1] 🔴 Write failing test ACC-1.3 in `frontend/src/__tests__/us1-data-states.test.jsx`: render DocumentsPage (representative data page) inside MemoryRouter; test loading state: mock fetch that never resolves, assert "Loading..." text is rendered; test error state: mock fetch that rejects, assert error message is rendered; test data state: mock fetch that resolves with documents, assert table rows are rendered; verify `npx vitest run` → RED
 
 ### 🟢 Implementation for User Story 1
 
-- [ ] T017 [P] [US1] 🟢 Migrate `frontend/src/pages/DashboardPage.jsx`: change `class=` to `className=`; update any preact/hooks imports to react
-- [ ] T018 [P] [US1] 🟢 Migrate `frontend/src/pages/DocumentsPage.jsx`: change `class=` to `className=`; update any preact/hooks imports to react
-- [ ] T019 [P] [US1] 🟢 Migrate `frontend/src/pages/DeviationsPage.jsx`: change `class=` to `className=`; update any preact/hooks imports to react
-- [ ] T020 [P] [US1] 🟢 Migrate `frontend/src/pages/AuditsPage.jsx`: change `class=` to `className=`; update any preact/hooks imports to react
-- [ ] T021 [P] [US1] 🟢 Migrate `frontend/src/pages/CasesPage.jsx`: change `class=` to `className=`; update any preact/hooks imports to react
-- [ ] T022 [P] [US1] 🟢 Migrate `frontend/src/pages/UsersPage.jsx`: change `class=` to `className=`; update any preact/hooks imports to react
-- [ ] T023 [P] [US1] 🟢 Migrate `frontend/src/pages/SettingsPage.jsx`: change `class=` to `className=`; change `onInput=` to `onChange=` on form inputs; update any preact/hooks imports to react
-- [ ] T024 [P] [US1] 🟢 Migrate `frontend/src/pages/HelpPage.jsx`: change `class=` to `className=`
-- [ ] T025 [US1] Run `npx vitest run` → GREEN (all ACC-1.x tests pass)
-- [ ] T026 [US1] Run post-migration grep verification: no leftover `class=` (excluding className), no `preact` imports, no `onInput=`; run `npm run build`
-- [ ] T027 [US1] Commit: "migrate frontend from Preact to React 19 + react-router-dom"
+- [x] T017 [P] [US1] 🟢 Migrate `frontend/src/pages/DashboardPage.jsx`: change `class=` to `className=`; update any preact/hooks imports to react
+- [x] T018 [P] [US1] 🟢 Migrate `frontend/src/pages/DocumentsPage.jsx`: change `class=` to `className=`; update any preact/hooks imports to react
+- [x] T019 [P] [US1] 🟢 Migrate `frontend/src/pages/DeviationsPage.jsx`: change `class=` to `className=`; update any preact/hooks imports to react
+- [x] T020 [P] [US1] 🟢 Migrate `frontend/src/pages/AuditsPage.jsx`: change `class=` to `className=`; update any preact/hooks imports to react
+- [x] T021 [P] [US1] 🟢 Migrate `frontend/src/pages/CasesPage.jsx`: change `class=` to `className=`; update any preact/hooks imports to react
+- [x] T022 [P] [US1] 🟢 Migrate `frontend/src/pages/UsersPage.jsx`: change `class=` to `className=`; update any preact/hooks imports to react
+- [x] T023 [P] [US1] 🟢 Migrate `frontend/src/pages/SettingsPage.jsx`: change `class=` to `className=`; change `onInput=` to `onChange=` on form inputs; update any preact/hooks imports to react
+- [x] T024 [P] [US1] 🟢 Migrate `frontend/src/pages/HelpPage.jsx`: change `class=` to `className=`
+- [x] T025 [US1] Run `npx vitest run` → GREEN (all ACC-1.x tests pass)
+- [x] T026 [US1] Run post-migration grep verification: no leftover `class=` (excluding className), no `preact` imports, no `onInput=`; run `npm run build`
+- [x] T027 [US1] Commit: "migrate frontend from Preact to React 19 + react-router-dom"
 
 **Checkpoint**: All 8 pages functional on React. All US1 tests green. Old light theme still applied.
 
@@ -105,11 +105,13 @@
 
 > **Write these tests FIRST. They MUST FAIL before implementation begins.**
 
-- [ ] T028 [US2] 🔴 Write failing test ACC-2.1 in `frontend/src/__tests__/us2-dark-theme.test.jsx`: render Layout inside MemoryRouter; assert `document.body` or root element has computed background-color matching `#060e20` (rgb(6, 14, 32)); assert the content area uses a lighter surface tier background; verify `npx vitest run` → RED
-- [ ] T029 [US2] 🔴 Write failing test ACC-2.2 in `frontend/src/__tests__/us2-cta-gradient.test.jsx`: render DocumentsPage (has "Export CSV" button with btn-primary class); assert the `.btn-primary` element has computed `background-image` containing `linear-gradient`; verify → RED
-- [ ] T030 [US2] 🔴 Write failing test ACC-2.3 in `frontend/src/__tests__/us2-glow-chips.test.jsx`: render DocumentsPage with mocked data containing documents with various statuses; assert each status badge has a semi-transparent background (rgba with 0.1 alpha) and matching text color; verify → RED
-- [ ] T031 [US2] 🔴 Write failing test ACC-2.4 in `frontend/src/__tests__/us2-glassmorphism.test.jsx`: render Header component; assert header element has computed `backdrop-filter` containing `blur`; verify → RED
-- [ ] T032 [US2] 🔴 Write failing test ACC-2.5 in `frontend/src/__tests__/us2-radius.test.jsx`: render SettingsPage (has form inputs and buttons); assert `.btn` elements have computed `border-radius` >= 12px; assert `.form-input` elements have computed `border-radius` >= 12px; verify → RED
+- [ ] T028 [US2] 🔴 Write failing test ACC-2.1 in `frontend/src/__tests__/us2-dark-theme.test.jsx`: render Layout inside MemoryRouter; assert root app-shell element has className referencing dark theme (e.g., includes "dark" or uses CSS custom property token); assert content area className references surface tier; verify `npx vitest run` → RED (jsdom note: assert classNames not computed styles)
+- [ ] T029 [US2] 🔴 Write failing test ACC-2.2 in `frontend/src/__tests__/us2-cta-gradient.test.jsx`: render DocumentsPage (has "Export CSV" button); assert `.btn-primary` element exists with gradient-specific className (e.g., "btn-primary" class is present and style.css defines it with gradient); verify → RED (jsdom note: assert className presence, not computed background-image)
+- [ ] T030 [US2] 🔴 Write failing test ACC-2.3 in `frontend/src/__tests__/us2-glow-chips.test.jsx`: render DocumentsPage with mocked data containing documents with various statuses; assert each status badge has a glow-chip className (e.g., "badge-glow-green", "badge-glow-red") instead of old solid badge classes; verify → RED
+- [ ] T031 [US2] 🔴 Write failing test ACC-2.4 in `frontend/src/__tests__/us2-glassmorphism.test.jsx`: render Header component; assert header element has className indicating glassmorphic styling (e.g., "header-glass" or "header" class present while style.css defines backdrop-filter); verify → RED (jsdom note: assert className, not computed backdrop-filter)
+- [ ] T032 [US2] 🔴 Write failing test ACC-2.5 in `frontend/src/__tests__/us2-radius.test.jsx`: render SettingsPage (has form inputs and buttons); assert `.btn` elements have className with radius token or inline style >= 12px; assert `.form-input` elements similarly; verify → RED
+- [ ] T032b [US2] 🔴 Write failing test ACC-2.6 in `frontend/src/__tests__/us2-empty-state.test.jsx`: render DocumentsPage with mocked fetch returning empty array; assert empty state message is rendered with dark theme styling (not default browser text); assert background matches surface tier; verify → RED
+- [ ] T032c [US2] 🔴 Write failing test ACC-2.7 in `frontend/src/__tests__/us2-sidebar-dark.test.jsx`: render Sidebar inside MemoryRouter at route "/documents"; assert sidebar element has dark surface background className; assert active NavLink has teal glow indicator className; assert inactive links do not have teal glow; verify → RED
 
 ### 🟢 Implementation for User Story 2
 
@@ -117,7 +119,7 @@
 - [ ] T034 [US2] 🟢 Update `frontend/src/components/layout/Sidebar.jsx`: apply dark surface background (`--color-surface`), teal glow on active NavLink, section titles with `--color-on-surface` muted opacity
 - [ ] T035 [US2] 🟢 Update `frontend/src/components/layout/Header.jsx`: apply glassmorphic styling (semi-transparent background + backdrop-blur), restyle search input with ghost border, update avatar and user info colors for dark theme
 - [ ] T036 [US2] 🟢 Update `frontend/src/components/layout/Layout.jsx`: apply surface hierarchy to content area (`--color-base` on outer, `--color-surface-container-low` on content wrapper)
-- [ ] T037 [US2] 🟢 Update badge markup across all page files to use new glow chip CSS classes — verify each page's status/severity/role badge maps to correct glow chip color per data-model.md badge color map
+- [ ] T037 [US2] 🟢 Update badge CSS class names across all page files: replace old solid badge classes (badge-green, badge-red, etc.) with new glow chip classes (badge-glow-green, badge-glow-red, etc.) defined in T033. This is a class rename pass only — page-specific layout changes happen in US3 (T047-T054).
 - [ ] T038 [US2] 🟢 Update loading and error state styling in all pages to use dark theme colors (not default browser styling)
 - [ ] T039 [US2] Run `npx vitest run` → GREEN (all ACC-2.x tests pass, US1 tests still green)
 - [ ] T040 [US2] Commit: "apply Centuri Prism dark design system globally"
@@ -148,8 +150,7 @@
 - [ ] T042 [US3] 🔴 Write failing test ACC-3.2 in `frontend/src/__tests__/us3-documents.test.jsx`: render DocumentsPage with mocked documents including various statuses; assert table rows use alternating tonal backgrounds (no hard borders between rows); assert status badges use glow chip classes; verify → RED
 - [ ] T043 [US3] 🔴 Write failing test ACC-3.3 in `frontend/src/__tests__/us3-documents-mobile.test.jsx`: render DocumentsPage with mocked data; set container width to 390px; assert no element has `overflow-x: scroll` or extends beyond viewport; assert content reflows to card-based layout (e.g., table is hidden and cards are shown, or table adapts); verify → RED
 - [ ] T044 [US3] 🔴 Write failing test ACC-3.4 in `frontend/src/__tests__/us3-users.test.jsx`: render UsersPage with mocked users including roles (Admin, QualityManager, Auditor, Viewer); assert role badges use secondary color (`--color-secondary` / violet `#ac8aff`); assert active/inactive status indicators are rendered with appropriate colors; verify → RED
-- [ ] T045 [US3] 🔴 Write failing test ACC-3.5 in `frontend/src/__tests__/us3-settings.test.jsx`: render SettingsPage; assert form inputs have ghost border styling (border-color using outline-variant token at reduced opacity, not solid opaque border); verify → RED
-- [ ] T046 [US3] 🔴 Write failing test ACC-3.6 in `frontend/src/__tests__/us3-sidebar.test.jsx`: render Sidebar inside MemoryRouter at route "/documents"; assert sidebar background uses dark surface color; assert active NavLink ("/documents") has teal glow indicator styling; assert inactive links do not have teal glow; verify → RED
+- [ ] T045 [US3] 🔴 Write failing test ACC-3.5 in `frontend/src/__tests__/us3-settings.test.jsx`: render SettingsPage; assert form inputs have ghost border styling (className using outline-variant token, not solid opaque border class); verify → RED
 
 ### 🟢 Implementation for User Story 3
 
@@ -240,12 +241,13 @@
 | `us2-glow-chips.test.jsx` | ACC-2.3 | US2 | Status badges use 10% opacity glow |
 | `us2-glassmorphism.test.jsx` | ACC-2.4 | US2 | Header has backdrop blur |
 | `us2-radius.test.jsx` | ACC-2.5 | US2 | Interactive elements >= 12px radius |
+| `us2-empty-state.test.jsx` | ACC-2.6 | US2 | Empty data state styled with dark theme |
+| `us2-sidebar-dark.test.jsx` | ACC-2.7 | US2 | Dark sidebar + teal active glow |
 | `us3-dashboard.test.jsx` | ACC-3.1 | US3 | KPI cards with glow + gradient CTAs |
 | `us3-documents.test.jsx` | ACC-3.2 | US3 | Tonal row table + glow chip badges |
 | `us3-documents-mobile.test.jsx` | ACC-3.3 | US3 | 390px responsive reflow |
 | `us3-users.test.jsx` | ACC-3.4 | US3 | Violet role badges + activity indicators |
 | `us3-settings.test.jsx` | ACC-3.5 | US3 | Ghost border form inputs |
-| `us3-sidebar.test.jsx` | ACC-3.6 | US3 | Dark sidebar + teal active glow |
 
 ---
 
@@ -275,7 +277,7 @@
 - [P] tasks = different files, no dependencies
 - [Story] label maps task to specific user story
 - 🔴 = write failing test, 🟢 = implement to pass
-- 14 total acceptance tests across 3 user stories
+- 15 total acceptance tests (3 US1 + 7 US2 + 5 US3)
 - US1 → US2 → US3 are sequential (not parallelizable across stories)
 - Within each story: write ALL tests first → then implement ALL
 - Commit after each completed user story (3 commits total)

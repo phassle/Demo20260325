@@ -11,19 +11,19 @@ const statusBadge = {
 export function DocumentsPage() {
   const { data, loading, error } = useApiData(documentApi.getAll);
 
-  if (loading) return <div class="loading">Loading documents...</div>;
-  if (error) return <div class="error">Error: {error}</div>;
+  if (loading) return <div className="loading">Loading documents...</div>;
+  if (error) return <div className="error">Error: {error}</div>;
 
   return (
     <div>
-      <div class="page-header">
-        <h2 class="page-title">All Documents</h2>
+      <div className="page-header">
+        <h2 className="page-title">All Documents</h2>
         {/* TODO: GH-2 — Enable CSV export when backend endpoint is ready */}
-        <button class="btn btn-primary" disabled title="Export coming soon">
+        <button className="btn btn-primary" disabled title="Export coming soon">
           Export CSV
         </button>
       </div>
-      <table class="data-table">
+      <table className="data-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -43,7 +43,7 @@ export function DocumentsPage() {
               <td>{doc.category}</td>
               <td>{doc.version}</td>
               <td>
-                <span class={`badge ${statusBadge[doc.status] || 'badge-gray'}`}>
+                <span className={`badge ${statusBadge[doc.status] || 'badge-gray'}`}>
                   {doc.status}
                 </span>
               </td>

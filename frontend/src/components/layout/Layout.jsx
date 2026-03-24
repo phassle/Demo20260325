@@ -3,11 +3,11 @@ import { Header } from './Header';
 
 export function Layout({ title, children }) {
   return (
-    <div class="app-shell">
+    <div className="app-shell">
       <Sidebar />
-      <div class="main-area">
+      <div className="main-area">
         <Header title={title} />
-        <div class="content">{children}</div>
+        <div className="content">{children}</div>
       </div>
     </div>
   );

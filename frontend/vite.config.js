@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite';
-import preact from '@preact/preset-vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  plugins: [preact()],
+  plugins: [react()],
   server: {
     port: 3000,
     proxy: {
@@ -11,5 +11,10 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/test-setup.js',
   },
 });

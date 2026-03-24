@@ -18,15 +18,15 @@ const statusBadge = {
 export function CasesPage() {
   const { data, loading, error } = useApiData(caseApi.getAll);
 
-  if (loading) return <div class="loading">Loading cases...</div>;
-  if (error) return <div class="error">Error: {error}</div>;
+  if (loading) return <div className="loading">Loading cases...</div>;
+  if (error) return <div className="error">Error: {error}</div>;
 
   return (
     <div>
-      <div class="page-header">
-        <h2 class="page-title">All Cases</h2>
+      <div className="page-header">
+        <h2 className="page-title">All Cases</h2>
       </div>
-      <table class="data-table">
+      <table className="data-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -45,12 +45,12 @@ export function CasesPage() {
               <td>{c.title}</td>
               <td>{c.type}</td>
               <td>
-                <span class={`badge ${priorityBadge[c.priority] || 'badge-gray'}`}>
+                <span className={`badge ${priorityBadge[c.priority] || 'badge-gray'}`}>
                   {c.priority}
                 </span>
               </td>
               <td>
-                <span class={`badge ${statusBadge[c.status] || 'badge-gray'}`}>
+                <span className={`badge ${statusBadge[c.status] || 'badge-gray'}`}>
                   {c.status}
                 </span>
               </td>

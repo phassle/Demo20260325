@@ -1,5 +1,4 @@
-import Router from 'preact-router';
-import { useState } from 'preact/hooks';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Layout } from './components/layout/Layout';
 import { DashboardPage } from './pages/DashboardPage';
 import { DocumentsPage } from './pages/DocumentsPage';
@@ -21,25 +20,31 @@ const titles = {
   '/help': 'Help',
 };
 
-export function App() {
-  const [title, setTitle] = useState('Dashboard');
-
-  const handleRoute = (e) => {
-    setTitle(titles[e.url] || 'Dashboard');
-  };
+function AppRoutes() {
+  const location = useLocation();
+  const title = titles[location.pathname] || 'Dashboard';
 
   return (
     <Layout title={title}>
-      <Router onChange={handleRoute}>
-        <DashboardPage path="/" />
-        <DocumentsPage path="/documents" />
-        <DeviationsPage path="/deviations" />
-        <AuditsPage path="/audits" />
-        <CasesPage path="/cases" />
-        <UsersPage path="/users" />
-        <SettingsPage path="/settings" />
-        <HelpPage path="/help" />
-      </Router>
+      <Routes>
+        <Route path="/" element={<DashboardPage />} />
+        <Route path="/documents" element={<DocumentsPage />} />
+        <Route path="/deviations" element={<DeviationsPage />} />
+        <Route path="/audits" element={<AuditsPage />} />
+        <Route path="/cases" element={<CasesPage />} />
+        <Route path="/users" element={<UsersPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/help" element={<HelpPage />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
     </Layout>
+  );
+}
+
+export function App() {
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 }

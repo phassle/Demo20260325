@@ -29,14 +29,14 @@ const faqs = [
 export function HelpPage() {
   return (
     <div>
-      <div class="page-header">
-        <h2 class="page-title">Help & FAQ</h2>
+      <div className="page-header">
+        <h2 className="page-title">Help & FAQ</h2>
       </div>
-      <div class="faq-list">
+      <div className="faq-list">
         {faqs.map((faq, i) => (
-          <div class="card faq-item" key={i}>
-            <h3 class="faq-question">{faq.question}</h3>
-            <p class="faq-answer">{faq.answer}</p>
+          <div className="card faq-item" key={i}>
+            <h3 className="faq-question">{faq.question}</h3>
+            <p className="faq-answer">{faq.answer}</p>
           </div>
         ))}
       </div>
