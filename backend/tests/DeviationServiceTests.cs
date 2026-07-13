@@ -9,11 +9,19 @@ public class DeviationServiceTests
     private readonly DeviationService _sut = new();
 
     [Fact]
-    public async Task GetAllAsync_ReturnsNonClosedDeviations()
+    public async Task GetAllAsync_ReturnsAllDeviations()
     {
         var deviations = await _sut.GetAllAsync();
         Assert.NotEmpty(deviations);
-        Assert.All(deviations, d => Assert.NotEqual(DeviationStatus.Closed, d.Status));
+        Assert.Equal(15, deviations.Count());
+    }
+
+    [Fact]
+    public async Task GetAllAsync_ReturnsDeviationsInAllStatuses_IncludingClosed()
+    {
+        var deviations = (await _sut.GetAllAsync()).ToList();
+        var statuses = deviations.Select(d => d.Status).Distinct().ToList();
+        Assert.Contains(DeviationStatus.Closed, statuses);
     }
 
     [Fact]

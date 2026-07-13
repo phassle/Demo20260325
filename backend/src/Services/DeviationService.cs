@@ -22,13 +22,8 @@ public class DeviationService : IDeviationService
         new() { Id = 15, Title = "Pest control finding in warehouse zone W-03",        Description = "Evidence of rodent activity found during routine pest control inspection in warehouse zone W-03.",               Severity = DeviationSeverity.High,     Status = DeviationStatus.InProgress, ReportedBy = "Sofia Andersson",  AssignedTo = "Nils Eriksson",    CreatedAt = new DateTime(2025, 12, 20), ResolvedAt = null },
     };
 
-    /// <summary>
-    /// BUG: This method incorrectly filters out Closed deviations.
-    /// All deviations should be returned regardless of status.
-    /// </summary>
     public Task<IEnumerable<Deviation>> GetAllAsync()
-        => Task.FromResult<IEnumerable<Deviation>>(
-            Deviations.Where(d => d.Status != DeviationStatus.Closed).ToList());
+        => Task.FromResult<IEnumerable<Deviation>>(Deviations);
 
     public Task<Deviation?> GetByIdAsync(int id)
         => Task.FromResult(Deviations.FirstOrDefault(d => d.Id == id));

@@ -1,86 +1,113 @@
-# AGENTS.md — Centuri eQMS Demo
+# Centuri eQMS Demo — Agent Guide
 
 Be extremely concise. Sacrifice grammar for concision.
 At the end of each plan, list unresolved questions.
 
-## WHAT — Tech Stack
+## Purpose
 
-| Layer | Tech | Version |
-|-------|------|---------|
-| Backend | C# / .NET | 10.0 (`global.json:2`) |
-| Frontend | Preact + preact-router | 10.x (`frontend/package.json:12`) |
-| Build | Vite 8 | `frontend/vite.config.js:1` |
-| Logging | Serilog | `backend/src/Program.cs:7` |
-| Scheduling | Quartz.NET | `backend/src/Program.cs:20` |
-| Tests | xUnit | `backend/tests/` |
-| Infra fakes | Elasticsearch, Redis, Quartz — all in-memory | `backend/src/Services/Fake*.cs` |
+Workshop demo app for Centuri eQMS (electronic Quality Management System).
+Domain: controlled documents, deviations, audits, cases, users.
+Contains **intentional bugs** for live-coding exercises — see `specs/` for workshop tasks.
 
-## WHY — Purpose
+## Tech Stack
 
-Electronic Quality Management System (eQMS) demo for Monterro Agentic Development Workshop.
-Domain: document control, deviation handling, audit management, CAPA.
-All data is in-memory — no database, no external services required.
+| Layer    | Stack                                                          |
+|----------|----------------------------------------------------------------|
+| Backend  | .NET 10, ASP.NET Core Minimal Hosting, Serilog, Quartz        |
+| Frontend | React 19, react-router-dom 7, Vite 8                          |
+| Tests BE | xUnit, Moq                                                    |
+| Tests FE | Vitest, Testing Library, jsdom                                 |
+| Design   | Centuri Prism Dark (CSS custom properties, no component lib)   |
 
-## HOW — Commands
+## Commands
 
 ```bash
 # Backend
-cd backend && dotnet build && dotnet run --project src    # http://localhost:5000
-cd backend && dotnet test                    # xUnit
-cd backend && dotnet format                  # code style
+cd backend && dotnet build
+cd backend && dotnet run --project src
+cd backend && dotnet test
 
 # Frontend
-cd frontend && npm install && npm run dev    # http://localhost:3000 (proxies /api → :5000)
-cd frontend && npm run build                 # production build
+cd frontend && npm install
+cd frontend && npm run dev        # localhost:3000, proxies /api → :5000
+cd frontend && npm test           # vitest run
+cd frontend && npm run build
 ```
 
-## Architecture
+## Project Structure
 
-- **Routing**: All controllers under `api/v2/[controller]` — see `backend/src/Controllers/`
-- **DI registration**: `backend/src/Program.cs:11-18` — scoped services, singleton fakes
-- **Service pattern**: Model → Interface → Implementation → Controller (details in [backend/AGENTS.md](backend/AGENTS.md#adding-a-new-entity))
-- **Frontend API layer**: Single fetch client at `frontend/src/services/api.js`
-- **Custom hook**: `frontend/src/hooks/useApiData.js` — loading/error state wrapper
+```
+backend/
+  src/
+    Controllers/      # Thin REST controllers — api/v2/[controller]
+    Models/            # POCOs
+    Services/          # Interface + implementation per entity
+    Middleware/         # !! STOP: AuthMiddleware.cs — never touch without asking
+    Program.cs         # DI registration, pipeline config
+  tests/               # xUnit service-level tests
+frontend/
+  src/
+    components/layout/ # Layout, Header, Sidebar
+    hooks/useApiData.js# Generic fetch hook {data, loading, error}
+    pages/             # One page per route
+    services/api.js    # All API calls, fetchJson() base
+    style.css          # Centuri Prism Dark design tokens + components
+specs/                 # Workshop task specifications (GH-1, GH-2, GH-3)
+docs/                  # Architecture deep dives
+```
 
-Deep dive → [docs/architectural_patterns.md](docs/architectural_patterns.md)
+## Key Patterns (summary)
+
+Full details → [docs/architectural_patterns.md](docs/architectural_patterns.md)
+
+**Backend — Service Layer**: Model → IService → Service → Controller. All async.
+DI: domain services `AddScoped`, infra fakes `AddSingleton` (`Program.cs:11-18`).
+
+**Frontend — API Layer**: `api.js:1-7` `fetchJson()` prepends `/api/v2`.
+Each entity exports `getAll(signal)` + `getById(id)`.
+`useApiData.js` wraps any fetch fn with loading/error/abort.
+
+**Routing**: `app.jsx:29-38` — `<Routes>` with one `<Route>` per page.
+Vite dev proxy: `vite.config.js:8-13`.
+
+**Design System**: CSS-only tokens in `style.css:4-30`. Dark theme.
+Glassmorphism cards, gradient CTAs, glow chips. No component library.
 
 ## Stop Rules
 
-1. **NEVER modify** `backend/src/Middleware/AuthMiddleware.cs` without asking — shared auth component
-2. **NEVER run** `dotnet ef database update` — no real DB; denied in `.claude/settings.json:13`
-3. **NEVER delete** `rm -rf` — denied in permissions
-4. **Ask before** changing DI registrations in `Program.cs` — affects all endpoints
+- `backend/src/Middleware/AuthMiddleware.cs` — **never modify without explicit approval**
+- Linters handle code style — do not enforce formatting manually
 
-## Hooks (auto-enforced)
+## Adding a New Entity (checklist)
 
-| Trigger | What runs | Ref |
-|---------|-----------|-----|
-| After any Write/Edit | `dotnet format --verify-no-changes` | `.claude/settings.json:19` |
-| Stop (agent done) | `dotnet test && dotnet build` | `.claude/settings.json:31` |
+1. `Models/{Entity}.cs` — POCO
+2. `Services/I{Entity}Service.cs` — interface with async methods
+3. `Services/{Entity}Service.cs` — implementation (in-memory data)
+4. `Services` DI registration in `Program.cs`
+5. `Controllers/{Entity}sController.cs` — `[Route("api/v2/[controller]")]`, inherit `ControllerBase`
+6. `tests/{Entity}ServiceTests.cs`
+7. `frontend/src/services/api.js` — add `{entity}Api` export
+8. `frontend/src/pages/{Entity}sPage.jsx`
+9. `frontend/src/app.jsx` — add route + title entry
 
-Linters handle code style — do not add formatting rules here.
+## Infra Fakes
 
-## API Endpoints
+| Interface          | Fake Implementation      | Stands in for   | DI Lifetime |
+|--------------------|--------------------------|-----------------|-------------|
+| `ICacheService`    | `FakeCacheService`       | Redis           | Singleton   |
+| `ISchedulerService`| `FakeSchedulerService`   | Quartz jobs     | Singleton   |
+| `ISearchService`   | `FakeSearchService`      | Elasticsearch   | Scoped      |
 
-All GET-only under `api/v2/[controller]`. Each entity has `GetAll` + `GetById`. Documents also has `Export` (admin-only). Full table → [backend/AGENTS.md](backend/AGENTS.md#controllers)
+Swap to real impl by changing DI registration only.
 
-## Testing
+## Workshop Tasks
 
-xUnit, no mocking, direct SUT instantiation. Details → [backend/AGENTS.md](backend/AGENTS.md#testing)
+| Spec                                  | Area     | Summary                           |
+|---------------------------------------|----------|-----------------------------------|
+| `specs/GH-1-upgrade-backend-to-dotnet-10.md` | Backend  | .NET 9 → 10 migration       |
+| `specs/GH-2-document-export-csv.md`   | Full     | CSV export endpoint + UI button   |
+| `specs/GH-3-deviation-management.md`  | Full     | Deviation CRUD enhancements       |
 
-## Known Issues
+## Deep Dives
 
-- **DeviationService bug**: `GetAllAsync()` filters out `Closed` status (`DeviationService.cs:31`), but `GetByIdAsync()` returns all — intentional workshop demo bug
-
-## Specs & Tasks
-
-Feature specs live in `specs/GH-*.md` — read before implementing any GH-N task.
-
-## Docs Index
-
-| File | Content |
-|------|---------|
-| [backend/AGENTS.md](backend/AGENTS.md) | Domain models, services, controllers, testing, known bugs |
-| [frontend/AGENTS.md](frontend/AGENTS.md) | Routing, pages, API layer, hooks, CSS classes |
-| [docs/architectural_patterns.md](docs/architectural_patterns.md) | Service pattern, DI, controller conventions, frontend patterns |
-| [specs/](specs/) | BDD feature specs (GH-1, GH-2, GH-3) |
+- [docs/architectural_patterns.md](docs/architectural_patterns.md) — Backend service layer, DI rules, controller conventions, frontend routing, API layer
